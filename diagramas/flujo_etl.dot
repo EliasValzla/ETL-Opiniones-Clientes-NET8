@@ -1,0 +1,17 @@
+digraph Flujo {
+ graph [rankdir=TB, bgcolor="white", pad=0.25, nodesep=0.24, ranksep=0.43];
+ node [fontname="Arial", fontsize=10.5, shape=box, style="rounded,filled", color="#AEC0CF", fillcolor="#F5F8FB", margin="0.18,0.1"];
+ edge [fontname="Arial", fontsize=9.5, color="#546D80", arrowsize=0.7];
+ a[label="INICIO - Worker Service",fillcolor="#DDEFFF"];
+ b[label="Leer appsettings.json y preparar base de datos demo"];
+ c[label="Ejecutar 3 extractores en paralelo\nCSV | SQLite | API REST",fillcolor="#E4F2FF"];
+ d[label="Validar campos básicos y mapear a OpinionCruda"];
+ e[label="Guardar registros en archivo temporal .tmp\n(uno por fuente)"];
+ f[label="Terminar escritura y renombrar .jsonl"];
+ g[label="Registrar cantidad, duración y ruta con ILogger",fillcolor="#E4F7EC"];
+ h[label="FIN - Datos extraídos en staging",fillcolor="#E4F7EC"];
+ err[label="Si una fuente falla: registrar error,\neliminar su .tmp y finalizar con código de error",fillcolor="#FDE8E8",color="#DA9999"];
+ a->b->c->d->e->f->g->h;
+ d->err[style=dashed,label="Error",constraint=false];
+ e->err[style=dashed,constraint=false];
+}

@@ -1,0 +1,10 @@
+digraph Arquitectura {
+ graph [rankdir=TB, bgcolor="white", pad=0.25, nodesep=0.45, ranksep=0.52, splines=ortho];
+ node [fontname="Arial", fontsize=11, shape=box, style="rounded,filled", color="#ACBDCC", penwidth=1.4, fillcolor="#F4F8FC", margin="0.19,0.12"];
+ edge [color="#4E6477", penwidth=1.6, arrowsize=0.7];
+ subgraph cluster_entradas {label="FUENTES DE DATOS"; fontname="Arial"; fontsize=12; color="#D9E3EC"; style="rounded"; csv [label="Encuestas internas\nCSV / CsvHelper"]; db [label="Reseñas del sitio web\nSQLite / ADO.NET"]; api [label="Comentarios de redes\nAPI REST / HttpClient"]; {rank=same; csv;db;api;} }
+ worker [label="WORKER SERVICE (.NET 8)\nIExtractor + CsvExtractor + DatabaseExtractor + ApiExtractor\nTask.WhenAll + ILogger + Stopwatch", fillcolor="#E4F2FF", color="#4389BB", penwidth=2, width=7.4];
+ staging [label="STAGING DE EXTRACCIÓN\n3 archivos JSONL + logs de ejecución",fillcolor="#EAF7ED",color="#65A47C", width=6];
+ futuro [label="FASES FUTURAS (NO IMPLEMENTADAS)\nTransformación → Base analítica (modelo estrella) → Dashboard",fillcolor="#FCF5E8",color="#D5AF67",style="rounded,filled,dashed",width=6];
+ csv->worker;db->worker;api->worker;worker->staging;staging->futuro[style=dashed,label="   etapa posterior",fontname="Arial",fontsize=9];
+}
