@@ -1,0 +1,6 @@
+IdEncuesta,ProductoId,ClienteId,Comentario,Calificacion,Fecha
+E001,P001,C001,Excelente calidad del producto,5,2026-10-01
+E002,P002,C002,El pedido llego tarde,2,2026-10-02
+E003,P001,C003,Me gusto pero puede mejorar,3,2026-10-03
+E004,P003,C004,Muy buena atencion,5,2026-10-04
+E005,P002,C005,Funcionamiento satisfactorio,4,2026-10-05
