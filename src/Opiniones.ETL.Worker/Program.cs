@@ -14,6 +14,7 @@ builder.Services.Configure<CsvOptions>(builder.Configuration.GetSection("Sources
 builder.Services.Configure<DatabaseOptions>(builder.Configuration.GetSection("Sources:Database"));
 builder.Services.Configure<ApiOptions>(builder.Configuration.GetSection("Sources:Api"));
 builder.Services.Configure<StagingOptions>(builder.Configuration.GetSection("Staging"));
+builder.Services.Configure<WarehouseOptions>(builder.Configuration.GetSection("Warehouse"));
 
 builder.Services.AddHttpClient("OpinionesApi", (sp, client) =>
 {
@@ -26,6 +27,7 @@ builder.Services.AddSingleton<IExtractor, CsvExtractor>();
 builder.Services.AddSingleton<IExtractor, DatabaseExtractor>();
 builder.Services.AddSingleton<IExtractor, ApiExtractor>();
 builder.Services.AddSingleton<IStagingWriter, JsonlStagingWriter>();
+builder.Services.AddSingleton<IDimensionLoader, SqliteDimensionLoader>();
 builder.Services.AddSingleton<DatabaseDemoInitializer>();
 builder.Services.AddHostedService<ExtractionWorker>();
 

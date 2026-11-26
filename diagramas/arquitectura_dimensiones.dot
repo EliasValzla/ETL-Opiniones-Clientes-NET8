@@ -1,0 +1,23 @@
+digraph A {
+  graph [rankdir=TB,bgcolor="transparent",pad="0.25",nodesep="0.4",ranksep="0.55",fontname="DejaVu Sans"];
+  node [shape=box,style="rounded,filled",color="#CFD9E3",penwidth=1.4,fontname="DejaVu Sans",fontsize=13,fillcolor="#EEF4FA",fontcolor="#142A44",margin="0.2,0.12"];
+  edge [color="#6A869E",arrowsize=0.7,penwidth=1.5];
+  csv [label="Encuestas CSV\n5 registros",fillcolor="#EBF2FF"];
+  bd [label="Reseñas SQLite\n3 registros",fillcolor="#EBF2FF"];
+  api [label="API REST local\n3 registros",fillcolor="#EBF2FF"];
+  { rank=same; csv; bd; api; }
+  ext [label="Worker .NET 8\nCsvExtractor / DatabaseExtractor / ApiExtractor",fillcolor="#D9EAFB",width=6.0];
+  staging [label="Staging JSONL\n3 archivos temporales por corrida",fillcolor="#FFF5DF"];
+  loader [label="SqliteDimensionLoader\nValidación + estandarización + transacción",fillcolor="#DDF3EA"];
+  prod [label="DimProducto",fillcolor="#EAF5EE"];
+  cliente [label="DimCliente",fillcolor="#EAF5EE"];
+  fecha [label="DimFecha",fillcolor="#EAF5EE"];
+  fuente [label="DimFuente",fillcolor="#EAF5EE"];
+  senti [label="DimSentimiento",fillcolor="#EAF5EE"];
+  { rank=same; prod; cliente; fecha; fuente; senti; }
+  wh [label="Data Warehouse SQLite\nopiniones_warehouse.db",fillcolor="#D6E9F4",width=5.5];
+  csv -> ext; bd -> ext; api -> ext;
+  ext -> staging -> loader;
+  loader -> prod;loader -> cliente;loader -> fecha;loader -> fuente;loader -> senti;
+  prod -> wh;cliente -> wh;fecha -> wh;fuente -> wh;senti -> wh;
+}

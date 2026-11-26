@@ -14,5 +14,7 @@
   <ItemGroup>
     <None Update="Data/encuestas.csv" CopyToOutputDirectory="PreserveNewest" />
     <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Sql/01_dimensiones_sqlite.sql" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Sql/02_verificacion.sql" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
